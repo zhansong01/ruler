@@ -48,12 +48,3 @@ cp "$RESOURCE_DIR"/* "$NIGHTLY_DIR/output"
 (echo "var data = "; cat "$NIGHTLY_DIR/data/output.json") > "$NIGHTLY_DIR/data/output.js"
 # Copy json directory to the artifact
 cp -r "$NIGHTLY_DIR/data" "$NIGHTLY_DIR/output/data"
-
-# This is the uploading part, copied directly from Herbie's nightly script.
-DIR="$NIGHTLY_DIR/output"
-B=$(git rev-parse --abbrev-ref HEAD)
-C=$(git rev-parse HEAD | sed 's/\(..........\).*/\1/')
-RDIR="$(date +%s):$(hostname):$B:$C"
-
-# Upload the artifact!
-nightly-results publish --name "$RDIR" "$DIR"
